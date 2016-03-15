@@ -1,11 +1,11 @@
+# Uses pi_switch from https://github.com/lexruee/pi-switch-python
+# See pi_switch readme for details on setup
+
 from pi_switch import RCSwitchReceiver
 
 receiver = RCSwitchReceiver()
 receiver.enableReceive(2)
 
-num = 0
-prev_value = 0
-collectedValues = {}
 while True:
     if receiver.available():
         value = receiver.getReceivedValue()
