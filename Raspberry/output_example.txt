@@ -1,0 +1,21 @@
+pi@raspberrypi:~/GitHub/ArduinoToRaspberry_via_433MHz_RF/Raspberry $ sudo python receiver.py 
+Tue Mar 15 22:00:05 2016: Humidity [%]=30 SeqNum=9
+Tue Mar 15 22:00:07 2016: Light=231 SeqNum=10
+Tue Mar 15 22:00:10 2016: Temp [C]=24 SeqNum=10
+Tue Mar 15 22:00:14 2016: Humidity [%]=30 SeqNum=10
+Tue Mar 15 22:00:15 2016: Light=254 SeqNum=11
+Tue Mar 15 22:00:19 2016: Temp [C]=24 SeqNum=11
+Tue Mar 15 22:00:23 2016: Humidity [%]=30 SeqNum=11
+Tue Mar 15 22:00:24 2016: Light=264 SeqNum=12
+Tue Mar 15 22:00:28 2016: Temp [C]=24 SeqNum=12
+Tue Mar 15 22:00:32 2016: Humidity [%]=30 SeqNum=12
+Tue Mar 15 22:00:33 2016: Light=225 SeqNum=13
+Tue Mar 15 22:00:37 2016: Temp [C]=24 SeqNum=13
+Tue Mar 15 22:00:40 2016: Humidity [%]=30 SeqNum=13
+Tue Mar 15 22:00:42 2016: Light=668 SeqNum=14
+Tue Mar 15 22:00:45 2016: Temp [C]=24 SeqNum=14
+Tue Mar 15 22:00:49 2016: Humidity [%]=46 SeqNum=14
+Tue Mar 15 22:00:51 2016: Light=226 SeqNum=15
+Tue Mar 15 22:00:54 2016: Temp [C]=24 SeqNum=15
+Tue Mar 15 22:00:58 2016: Humidity [%]=37 SeqNum=15
+Tue Mar 15 22:00:59 2016: Light=250 SeqNum=0
