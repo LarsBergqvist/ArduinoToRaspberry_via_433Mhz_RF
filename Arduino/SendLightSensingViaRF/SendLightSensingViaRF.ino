@@ -20,7 +20,7 @@ void setup()
   pinMode(LIGHT_IN, INPUT);
      
   transmitter.enableTransmit(10); 
-  transmitter.setRepeatTransmit(15);
+  transmitter.setRepeatTransmit(25);
 }
 
 // A rolling sequence number for each measurement
