@@ -39,11 +39,8 @@ void loop()
     unsigned long byte0 = 0xFF & checkSum;
     unsigned long dataToSend = (byte3 << 24) + (byte2_and_byte_1 << 8) + byte0;
     
-//    Serial.println("byte 3:");
-//    Serial.println(byte3);
-
 //    Serial.println(dataToSend);
-//    Serial.println(sizeof(unsigned long));
+
     // Send 32 bits of data
     transmitter.send( dataToSend, 32);
     
