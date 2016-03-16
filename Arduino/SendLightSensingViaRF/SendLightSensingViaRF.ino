@@ -9,6 +9,9 @@
 // understands which device sent what message
 #define ARDUINO_ID 3
 
+// PWN output pin to use for transmission
+#define TX_PIN 10
+
 #define DELAY_BETWEEN_TRANSMITS 5000 // in milliseconds
 
 RCSwitch transmitter = RCSwitch();
@@ -19,7 +22,7 @@ void setup()
 
   pinMode(LIGHT_IN, INPUT);
      
-  transmitter.enableTransmit(10); 
+  transmitter.enableTransmit(TX_PIN); 
   transmitter.setRepeatTransmit(25);
 }
 
