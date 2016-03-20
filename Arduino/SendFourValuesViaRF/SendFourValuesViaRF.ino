@@ -33,7 +33,7 @@ RCSwitch transmitter = RCSwitch();
  
 void setup() 
 {  
-  Serial.begin(9600);
+//  Serial.begin(9600);
 
   pinMode(LIGHT_IN, INPUT);
      
@@ -71,6 +71,14 @@ unsigned int EncodeFloatToTwoBytes(float floatValue)
   return word;
 }
 
+void TransmitWithRepeat(unsigned long dataToSend)
+{
+    transmitter.send(dataToSend, 32);
+    delay(2000);
+    transmitter.send(dataToSend, 32);
+    delay(2000);
+}
+
 // A rolling sequence number for each measurement
 // Restarts at 0 after seqNum=15 has been used
 unsigned long seqNum=0;
@@ -91,22 +99,15 @@ void loop()
     sensors.requestTemperatures();
     float outdoorTemp = sensors.getTempCByIndex(0);
     unsigned int encodedFloat = EncodeFloatToTwoBytes(outdoorTemp);
-
     unsigned long dataToSend = Code32BitsToSend(OUTDOOR_MEASUREMENT,seqNum,encodedFloat);
-    // Send 32 bits of data
-    transmitter.send(dataToSend, 32);
+    TransmitWithRepeat(dataToSend);
 
-    delay(2000);
-    
     //
     // Get the light measurement (0-1023)
     //
     unsigned int data = analogRead(LIGHT_IN);
     dataToSend = Code32BitsToSend(LDR_MEASUREMENT_ID,seqNum,data);
-    // Send 32 bits of data
-    transmitter.send(dataToSend, 32);
-
-    delay(2000);
+    TransmitWithRepeat(dataToSend);
 
     //
     // DHT11, get temperature
@@ -115,10 +116,8 @@ void loop()
     if (!isnan(t)) 
     {
       dataToSend = Code32BitsToSend(TEMP_MEASUREMENT_ID,seqNum,t);
-      transmitter.send(dataToSend, 32);
+      TransmitWithRepeat(dataToSend);
     }
-
-    delay(2000);
 
     //
     // DHT11, get humidity
@@ -127,9 +126,9 @@ void loop()
     if (!isnan(h)) 
     {
       dataToSend = Code32BitsToSend(HUMIDITY_MEASUREMENT_ID,seqNum,h);
-      transmitter.send(dataToSend, 32);
+      TransmitWithRepeat(dataToSend);
     }
-      
+
     seqNum++;
     if (seqNum > 15)
     {
