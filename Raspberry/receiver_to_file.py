@@ -9,17 +9,19 @@ import csv
 receiver = RCSwitchReceiver()
 receiver.enableReceive(2)
 
-acceptedTypes = { 1 : "Indoor Light", 2 : "Indoor Temp", 3: "Indoor Humidity",4:"Outdoor temp" }
+acceptedTypes = { 1 : "Indoor Light", 2 : "Indoor Temp", 3: "Indoor Humidity",4:"Outdoor Temp" }
 
 def recordIncomingMeasurements(writer):
     prev_value = 0L
+    numIdenticalInARow=1
     while True:
         if receiver.available():
             value = receiver.getReceivedValue()
-
+ #           print(value)
             if value == prev_value:
-                # we have already seen this measurement, so ignore it
-                continue
+                numIdenticalInARow += 1
+            else:
+                numIdenticalInARow = 1
             
             # decode byte3
             byte3 = (0xFF000000 & value) >> 24
@@ -64,10 +66,13 @@ def recordIncomingMeasurements(writer):
 
             if correctData:
                 timeValue = time.ctime()
-                print(str.format("{0}: {1}={2} SeqNum={3}",timeValue,acceptedTypes[typeID],data,seqNum))
+                if numIdenticalInARow == 2:
+                    # only store values if message was registred twice
+                    # if registred more than two times, ignore the value
+                    print(str.format("{0}: {1}={2} SeqNum={3}",timeValue,acceptedTypes[typeID],data,seqNum))
+                    writer.writerow({'Time':timeValue,acceptedTypes[typeID]:data})
+                    csvfile.flush()
                 prev_value = value
-                writer.writerow({'Time':timeValue,acceptedTypes[typeID]:data})
-                csvfile.flush()
                 
             receiver.resetAvailable()
         
